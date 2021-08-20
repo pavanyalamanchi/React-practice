@@ -1,56 +1,51 @@
 import { useState, useEffect } from "react";
 
-let newList=[]
+let newList = [];
 const ToDo = () => {
-const [item, setItem] = useState('');
-const [list,setList] = useState()
-const [bool,setBool] = useState(false)
+  const [item, setItem] = useState("");
+  const [bool, setBool] = useState(false);
 
-//const pathToSave = join(dirname(fileURLToPath(import.meta.url)),'../data')
+  //const pathToSave = join(dirname(fileURLToPath(import.meta.url)),'../data')
 
-const handleInput = (value) => {
-    setItem(value)
+  const handleInput = (value) => {
+    setItem(value);
     //list.push(value)
-}
-const submitForm = () => {
-   // e.preventDefault();
-    
-    setList(item)
-    newList.push(item)
-    console.log(item)
-    //setBool(true)
-    console.log(bool)
-    
-    setItem('')
-    }
+  };
+  const submitForm = (e) => {
+    e.preventDefault();
+    newList.push(item);
+    setBool(true);
+    setItem("");
+  };
 
-    useEffect(()=> {
-        setList(item)
-        newList.push(item)
-        setBool(true)
-        console.log(list)
-    },[])
-
+  useEffect(() => {
+    newList.push(item);
+    setBool(true);
+    setItem("");
+  }, []);
 
   return (
     <>
-    {console.log('hey! i am rendered')}
-   
-      <form onSubmit={submitForm}>
-        <input
-        type="text"
-        onChange={(event)=>{
-            handleInput(event.target.value)
+      {console.log("hey! i am rendered")}
+
+      <form
+        onSubmit={(event) => {
+          submitForm(event);
         }}
+      >
+        <input
+          type="text"
+          onChange={(event) => {
+            handleInput(event.target.value);
+          }}
         ></input>
-        <button type='submit'>Add</button>
+        <button type="submit">Add</button>
       </form>
       {/*list.map((listItem) => {
           <h4>{listItem}</h4>
       })*/}
-      
-    {bool && newList.map(listItem => <h4>{listItem}</h4>)}
-    
+
+      {bool && newList.map((listItem) => <h4>{listItem}</h4>)}
     </>
   );
 };
