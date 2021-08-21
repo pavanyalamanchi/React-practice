@@ -4,14 +4,12 @@ import Counter from "./components/Counter";
 import ToDo from "./components/ToDo";
 
 function App() {
-    return ( <
-        >
-        <
-        Counter / >
-        <
-        ToDo / > { " " } <
-        />
-    );
+  return (
+    <>
+      <Counter /><br/><br/>
+      <ToDo />
+    </>
+  );
 }
 
 export default App;

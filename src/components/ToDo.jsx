@@ -1,51 +1,36 @@
-import { useState, useEffect } from "react";
 
-let newList = [];
+import { useState } from "react";
+
 const ToDo = () => {
-  const [item, setItem] = useState("");
-  const [bool, setBool] = useState(false);
+  const [task, setTask] = useState();
+  const [list, setList] = useState([]);
 
-  //const pathToSave = join(dirname(fileURLToPath(import.meta.url)),'../data')
-
-  const handleInput = (value) => {
-    setItem(value);
-    //list.push(value)
-  };
-  const submitForm = (e) => {
-    e.preventDefault();
-    newList.push(item);
-    setBool(true);
-    setItem("");
+  const handleInput = (e) => {
+    setTask(e.target.value);
   };
 
-  useEffect(() => {
-    newList.push(item);
-    setBool(true);
-    setItem("");
-  }, []);
+  const submitTask = (e) => {
+    setList([...list,task])
+    setTask('')
+  }
+
+  const crossLine = (event) => {
+    const element = event.target;
+    element.classList.toggle("crossed-line");
+}
 
   return (
     <>
-      {console.log("hey! i am rendered")}
-
-      <form
-        onSubmit={(event) => {
-          submitForm(event);
-        }}
-      >
-        <input
-          type="text"
-          onChange={(event) => {
-            handleInput(event.target.value);
-          }}
-        ></input>
-        <button type="submit">Add</button>
-      </form>
-      {/*list.map((listItem) => {
-          <h4>{listItem}</h4>
-      })*/}
-
-      {bool && newList.map((listItem) => <h4>{listItem}</h4>)}
+    <input
+      value={task}
+      type="text"
+      onChange={(event) => {
+        handleInput(event);
+      }}
+    ></input>
+    <button type='button' onClick={(event)=> submitTask(event)}>Add</button>
+    {console.log('list',list)}
+    { list.map((item) => <h4 onClick={(event)=>crossLine(event)}>{item}</h4>)}
     </>
   );
 };
